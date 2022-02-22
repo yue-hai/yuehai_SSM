@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <!--
+        context：指定代码生成器的运行环境
+            targetRuntime="MyBatis3Simple"：生成简单版的CRUD
+                        MyBatis3：豪华版，生成有where标签的CRUD
+    -->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <commentGenerator>
+            <!-- 使逆向工程生成的代码没有注释 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!-- jdbcConnection：指定如何连接到目标数据库 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://152.136.229.92:3306/ssm_crud?characterEncoding=utf-8&amp;rewriteBatchedStatements=true"
+                        userId="root"
+                        password="000123">
+        </jdbcConnection>
+
+        <!-- 类型解析器 -->
+        <javaTypeResolver>
+            <!-- 是否强制转换 BigDecimals，否 -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- javaModelGenerator：指定 javaBean 的生成策略
+                targetPackage="test.model"：目标包名
+                targetProject=".\src"：目标工程
+        -->
+        <javaModelGenerator targetPackage="com.yuehai.ssm.bean"
+                            targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- sqlMapGenerator：sql 映射文件生成策略： -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject=".\src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- javaClientGenerator：指定 mapper 接口所在的位置 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.yuehai.ssm.dao"
+                             targetProject=".\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 指定要逆向分析哪些表：根据表要创建 javaBean -->
+        <table tableName="tbl_emp" domainObjectName="Employee" />
+        <table tableName="tbl_dept" domainObjectName="Department" />
+    </context>
+
+</generatorConfiguration>

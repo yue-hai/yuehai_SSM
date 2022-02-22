@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- MyBatis 全局配置文件 -->
+<configuration>
+    <!--
+        二、settings 是 MyBatis 中极为重要的调整设置，它们会改变 MyBatis 的运行时行为
+        settings：用来设置每一个设置项
+        1、name：设置项的名称
+        2、value：设置项的值
+        显式的指定每个我们需要更改的配置的值，即使他是默认的，防止版本更新带来的问题
+     -->
+    <settings>
+        <!-- 开启自动驼峰命名规则映射 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+
+    <!-- 三、typeAliases：别名处理器，可以为我们的 Java 类型起别名，别名不区分大小写 -->
+    <typeAliases>
+        <!-- typeAlias：为 Java 类型设置一个短的名字，可以方便我们引用某个类 -->
+        <!-- type：指定要起别名的类型全类名，默认是类名小写；alias：自定义类的别名 -->
+        <package name="com.yuehai.ssm.bean"/>
+    </typeAliases>
+
+    <!-- plugins：注册插件 -->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--
+                分页参数合理化，默认值为 false，设置为 true 时，
+                pageNum<=0 时，会查询第一页
+                pageNum>pages（超过总数） 时，会查询最后一页
+              -->
+            <property name="reasonable" value="true"/>
+        </plugin>
+    </plugins>
+
+</configuration>
